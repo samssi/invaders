@@ -1,10 +1,12 @@
 package fi.samssi.creatures;
 
+import static fi.samssi.creators.GameEngineCreator.DEFAULT_CAMERA_WIDTH;
+import static fi.samssi.creatures.Direction.LEFT;
+import static fi.samssi.creatures.Direction.RIGHT;
+
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-
-import fi.samssi.creators.GameEngineCreator;
 
 public class Invader extends Sprite {
 
@@ -23,22 +25,22 @@ public class Invader extends Sprite {
 
     public void move() {
         directionChange();
-        if (direction.equals(Direction.LEFT)) {
+        if (direction.equals(LEFT)) {
             this.setPosition(this.getX() - 10f, this.getY());
         }
-        if (direction.equals(Direction.RIGHT)) {
+        if (direction.equals(RIGHT)) {
             this.setPosition(this.getX() + 10f, this.getY());
         }
 
     }
 
     private void directionChange() {
-        if (this.getX() > GameEngineCreator.DEFAULT_CAMERA_WIDTH) {
-            direction = Direction.LEFT;
+        if (this.getX() > DEFAULT_CAMERA_WIDTH) {
+            direction = LEFT;
             this.setPosition(this.getX(), this.getY() + 100f);
         }
         if (this.getX() < 0) {
-            direction = Direction.RIGHT;
+            direction = RIGHT;
             this.setPosition(this.getX(), this.getY() + 100f);
         }
     }
