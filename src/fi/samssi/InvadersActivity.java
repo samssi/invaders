@@ -11,7 +11,7 @@ import org.anddev.andengine.opengl.texture.TextureManager;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import fi.samssi.creators.GameEngineCreator;
-import fi.samssi.creators.SceneCreator;
+import fi.samssi.creators.MainGameSceneCreator;
 import fi.samssi.creators.TextureRegionAndAtlas;
 import fi.samssi.creators.TextureRegionAndAtlasCreator;
 import fi.samssi.creatures.Invader;
@@ -54,11 +54,10 @@ public class InvadersActivity extends BaseGameActivity {
         invaders.add(new Invader(100, 100, spaceInvaderTextureRegionAndAtlas.getSpaceInvaderTextureRegion()));
         invaders.add(new Invader(x, y, spaceInvaderTextureRegionAndAtlas.getSpaceInvaderTextureRegion()));
         spaceShip = new SpaceShip(GameEngineCreator.DEFAULT_CAMERA_WIDTH / 2f, GameEngineCreator.DEFAULT_CAMERA_HEIGHT - 100f, spaceShipTextureRegionAndAtlas.getSpaceInvaderTextureRegion());
-        return new SceneCreator().createSceneWith(invaders, spaceShip);
+        return new MainGameSceneCreator(spaceShip, invaders).createScene();
     }
 
     @Override
     public void onLoadComplete() {
     }
-
 }
