@@ -7,6 +7,8 @@ import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.input.touch.TouchEvent;
 
+import android.view.GestureDetector;
+import fi.samssi.OnGameGestureDetector;
 import fi.samssi.creatures.Invader;
 import fi.samssi.creatures.SpaceShip;
 import fi.samssi.handler.InvadersHandler;
@@ -15,10 +17,12 @@ import fi.samssi.handler.InvadersHandler;
 public class MainGameSceneCreator implements IOnSceneTouchListener {
     private final SpaceShip spaceShip;
     private final List<Invader> invaders;
+    private final GestureDetector gestureDetector;
 
     public MainGameSceneCreator(final SpaceShip spaceShip, final List<Invader> invaders) {
         this.spaceShip = spaceShip;
         this.invaders = invaders;
+        this.gestureDetector = new GestureDetector(new OnGameGestureDetector());
     }
 
     public Scene createScene() {
@@ -31,9 +35,11 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
         return scene;
     }
 
+
     @Override
     public boolean onSceneTouchEvent(final Scene pScene, final TouchEvent pSceneTouchEvent) {
         spaceShip.setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
+        gestureDetector.onTouchEvent(pSceneTouchEvent.getMotionEvent());
         return true;
     }
 
