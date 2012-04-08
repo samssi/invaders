@@ -44,7 +44,6 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
 
     @Override
     public boolean onSceneTouchEvent(final Scene pScene, final TouchEvent pSceneTouchEvent) {
-        System.err.println("jee");
         spaceShip.setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
         return true;
     }
