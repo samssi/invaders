@@ -2,7 +2,6 @@ package fi.samssi.creators;
 
 import java.util.List;
 
-import org.anddev.andengine.engine.handler.IUpdateHandler;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
@@ -10,6 +9,7 @@ import org.anddev.andengine.input.touch.TouchEvent;
 
 import fi.samssi.creatures.Invader;
 import fi.samssi.creatures.SpaceShip;
+import fi.samssi.handler.InvadersHandler;
 
 
 public class MainGameSceneCreator implements IOnSceneTouchListener {
@@ -26,18 +26,7 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
         scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
         attachInvaders(scene, invaders);
         attachSpaceShip(scene, spaceShip);
-        scene.registerUpdateHandler(new IUpdateHandler() {
-            @Override
-            public void onUpdate(final float pSecondsElapsed) {
-                for (Invader invader : invaders) {
-                    invader.move();
-                }
-            }
-
-            @Override
-            public void reset() {
-            }
-        });
+        scene.registerUpdateHandler(new InvadersHandler(invaders));
         scene.setOnSceneTouchListener(this);
         return scene;
     }
