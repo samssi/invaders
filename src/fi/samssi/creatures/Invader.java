@@ -4,11 +4,10 @@ import static fi.samssi.creators.GameEngineCreator.DEFAULT_CAMERA_WIDTH;
 import static fi.samssi.creatures.Direction.LEFT;
 import static fi.samssi.creatures.Direction.RIGHT;
 
-import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
-public class Invader extends Sprite {
+public class Invader extends Ship {
 
     private Direction direction = Direction.RIGHT;
 
