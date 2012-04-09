@@ -30,7 +30,7 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
         scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
         attachInvaders(scene, invaders);
         attachSpaceShip(scene, spaceShip);
-        scene.registerUpdateHandler(new InvadersHandler(invaders));
+        scene.registerUpdateHandler(new InvadersHandler(invaders, spaceShip, scene));
         scene.setOnSceneTouchListener(this);
         return scene;
     }
