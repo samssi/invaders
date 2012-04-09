@@ -23,6 +23,7 @@ public class InvadersHandler implements IUpdateHandler {
     public void onUpdate(final float pSecondsElapsed) {
         for (Invader invader : invaders) {
             if (invader.collidesWith(spaceShip)) {
+                spaceShip.getSecuritySystem().registerCollision(100);
                 scene.detachChild(invader);
             }
             invader.move();
