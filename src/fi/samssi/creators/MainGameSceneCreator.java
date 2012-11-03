@@ -44,7 +44,7 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
     public boolean onSceneTouchEvent(final Scene scene, final TouchEvent pSceneTouchEvent) {
         spaceShip.setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
         gestureDetector.onTouchEvent(pSceneTouchEvent.getMotionEvent());
-        scene.registerUpdateHandler(new ShotHandler(shot/*, scene*/));
+        scene.registerUpdateHandler(new ShotHandler(shot, scene));
         return true;
     }
 
