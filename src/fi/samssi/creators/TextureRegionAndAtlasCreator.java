@@ -28,5 +28,12 @@ public class TextureRegionAndAtlasCreator {
         return new TextureRegionAndAtlas(spaceInvaderAtlas, spaceInvaderTextureRegion);
     }
 
+    public TextureRegionAndAtlas createShotAtlas() {
+        BitmapTextureAtlas spaceInvaderAtlas = new BitmapTextureAtlas(16, 16, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+        TextureRegion spaceInvaderTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(spaceInvaderAtlas, context, "shot.png", 0, 0);
+        return new TextureRegionAndAtlas(spaceInvaderAtlas, spaceInvaderTextureRegion);
+    }
+
 
 }
