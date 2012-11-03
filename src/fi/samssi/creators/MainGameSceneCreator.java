@@ -35,8 +35,6 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
         attachInvaders(scene, invaders);
         attachSpaceShip(scene, spaceShip);
         scene.attachChild(shot);
-        scene.registerUpdateHandler(new InvadersHandler(invaders, spaceShip, scene));
-        scene.registerUpdateHandler(new ShotHandler(shot/*, scene*/));
         scene.setOnSceneTouchListener(this);
         return scene;
     }
@@ -46,6 +44,7 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
     public boolean onSceneTouchEvent(final Scene scene, final TouchEvent pSceneTouchEvent) {
         spaceShip.setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
         gestureDetector.onTouchEvent(pSceneTouchEvent.getMotionEvent());
+        scene.registerUpdateHandler(new ShotHandler(shot/*, scene*/));
         return true;
     }
 
@@ -58,5 +57,6 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
             scene.registerTouchArea(invader);
             scene.attachChild(invader);
         }
+        scene.registerUpdateHandler(new InvadersHandler(invaders, spaceShip, scene));
     }
 }
