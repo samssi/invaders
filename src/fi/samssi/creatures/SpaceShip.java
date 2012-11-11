@@ -3,6 +3,9 @@ package fi.samssi.creatures;
 import static fi.samssi.creators.Atlas.SHOT;
 import static fi.samssi.creators.Atlas.SPACESHIP;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.anddev.andengine.entity.scene.Scene;
 
 import fi.samssi.container.HashMapAtlasContainer;
@@ -11,6 +14,7 @@ import fi.samssi.handler.ShotHandler;
 
 public class SpaceShip extends Ship {
     private final HashMapAtlasContainer<TextureRegionAndAtlas> textureRegionAndAtlasContainer;
+    private final List<Shot> shotsOnRoute = new ArrayList<Shot>();
     private final Scene scene;
 
 
@@ -23,8 +27,13 @@ public class SpaceShip extends Ship {
     public void fire() {
         Shot shot = new Shot(0, Shot.HIDDEN, textureRegionAndAtlasContainer.get(SHOT).getSpaceInvaderTextureRegion());
         shot.setPosition(this.getX(), this.getY());
+        shotsOnRoute.add(shot);
         scene.attachChild(shot);
-        scene.registerUpdateHandler(new ShotHandler(shot));
+        scene.registerUpdateHandler(new ShotHandler(shot, shotsOnRoute));
+    }
+
+    public List<Shot> getShotsOnRoute() {
+        return shotsOnRoute;
     }
 
 }

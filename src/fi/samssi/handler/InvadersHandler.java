@@ -10,20 +10,22 @@ import fi.samssi.creatures.Shot;
 
 public class InvadersHandler implements IUpdateHandler {
     private final List<Invader> invaders;
-    private final Shot shot;
+    private final List<Shot> shotsOnRoute;
     private final Scene scene;
 
-    public InvadersHandler(final List<Invader> invaders, final Shot shot, final Scene scene) {
+    public InvadersHandler(final List<Invader> invaders, final List<Shot> shotsOnRoute, final Scene scene) {
         this.invaders = invaders;
-        this.shot = shot;
+        this.shotsOnRoute = shotsOnRoute;
         this.scene = scene;
     }
 
     @Override
     public void onUpdate(final float pSecondsElapsed) {
         for (Invader invader : invaders) {
-            if (invader.collidesWith(shot)) {
-                scene.detachChild(invader);
+            for (Shot shot : shotsOnRoute) {
+                if (invader.collidesWith(shot)) {
+                    scene.detachChild(invader);
+                }
             }
             invader.move();
         }

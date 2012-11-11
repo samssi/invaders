@@ -15,6 +15,7 @@ import fi.samssi.SpaceShipGestureDetector;
 import fi.samssi.container.HashMapAtlasContainer;
 import fi.samssi.creatures.Invader;
 import fi.samssi.creatures.SpaceShip;
+import fi.samssi.handler.InvadersHandler;
 
 
 public class MainGameSceneCreator implements IOnSceneTouchListener {
@@ -64,6 +65,6 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
             scene.registerTouchArea(invader);
             scene.attachChild(invader);
         }
-        //        scene.registerUpdateHandler(new InvadersHandler(invaders, spaceShip.getShot(), scene));
+        scene.registerUpdateHandler(new InvadersHandler(invaders, spaceShip.getShotsOnRoute(), scene));
     }
 }
