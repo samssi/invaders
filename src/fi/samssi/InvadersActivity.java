@@ -58,7 +58,7 @@ public class InvadersActivity extends BaseGameActivity {
         invaders.add(new Invader(100, 0, spaceInvaderTextureRegionAndAtlas.getSpaceInvaderTextureRegion()));
         invaders.add(new Invader(100, 100, spaceInvaderTextureRegionAndAtlas.getSpaceInvaderTextureRegion()));
         invaders.add(new Invader(x, y, spaceInvaderTextureRegionAndAtlas.getSpaceInvaderTextureRegion()));
-        shot = new Shot(0, 0, shotTextureRegionAndAtlas.getSpaceInvaderTextureRegion());
+        shot = new Shot(0, Shot.HIDDEN, shotTextureRegionAndAtlas.getSpaceInvaderTextureRegion());
         spaceShip = new SpaceShip(GameEngineCreator.DEFAULT_CAMERA_WIDTH / 2f, GameEngineCreator.DEFAULT_CAMERA_HEIGHT - 100f, spaceShipTextureRegionAndAtlas.getSpaceInvaderTextureRegion());
         return new MainGameSceneCreator(spaceShip, invaders, shot).createScene();
     }

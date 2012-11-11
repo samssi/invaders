@@ -13,7 +13,7 @@ public class ShotHandler implements IUpdateHandler {
 
     @Override
     public void onUpdate(final float pSecondsElapsed) {
-        if (shot.getY() > 0) {
+        if (shot.getY() > Shot.HIDDEN) {
             shot.move();
             return;
         }

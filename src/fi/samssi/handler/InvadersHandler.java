@@ -6,24 +6,23 @@ import org.anddev.andengine.engine.handler.IUpdateHandler;
 import org.anddev.andengine.entity.scene.Scene;
 
 import fi.samssi.creatures.Invader;
-import fi.samssi.creatures.SpaceShip;
+import fi.samssi.creatures.Shot;
 
 public class InvadersHandler implements IUpdateHandler {
     private final List<Invader> invaders;
-    private final SpaceShip spaceShip;
+    private final Shot shot;
     private final Scene scene;
 
-    public InvadersHandler(final List<Invader> invaders, final SpaceShip spaceShip, final Scene scene) {
+    public InvadersHandler(final List<Invader> invaders, final Shot shot, final Scene scene) {
         this.invaders = invaders;
-        this.spaceShip = spaceShip;
+        this.shot = shot;
         this.scene = scene;
     }
 
     @Override
     public void onUpdate(final float pSecondsElapsed) {
         for (Invader invader : invaders) {
-            if (invader.collidesWith(spaceShip)) {
-                spaceShip.getSecuritySystem().registerCollision(100);
+            if (invader.collidesWith(shot)) {
                 scene.detachChild(invader);
             }
             invader.move();

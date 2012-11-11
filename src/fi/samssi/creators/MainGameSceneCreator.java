@@ -58,6 +58,6 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
             scene.registerTouchArea(invader);
             scene.attachChild(invader);
         }
-        scene.registerUpdateHandler(new InvadersHandler(invaders, spaceShip, scene));
+        scene.registerUpdateHandler(new InvadersHandler(invaders, shot, scene));
     }
 }
