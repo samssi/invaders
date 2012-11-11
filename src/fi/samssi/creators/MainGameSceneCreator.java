@@ -13,32 +13,29 @@ import org.anddev.andengine.input.touch.TouchEvent;
 import android.view.GestureDetector;
 import fi.samssi.SpaceShipGestureDetector;
 import fi.samssi.container.HashMapAtlasContainer;
-import fi.samssi.container.SceneContainer;
 import fi.samssi.creatures.Invader;
 import fi.samssi.creatures.SpaceShip;
 
 
 public class MainGameSceneCreator implements IOnSceneTouchListener {
-    private final SceneContainer sceneContainer;
     private final GestureDetector gestureDetector;
-    final Scene scene = new Scene();
+    private final Scene scene = new Scene();
+    private final SpaceShip spaceShip;
+    private final List<Invader> invaders;
     private final HashMapAtlasContainer<TextureRegionAndAtlas> textureRegionAndAtlasContainer;
 
 
     public MainGameSceneCreator(final HashMapAtlasContainer<TextureRegionAndAtlas> textureRegionAndAtlasContainer) {
         this.textureRegionAndAtlasContainer = textureRegionAndAtlasContainer;
-        this.sceneContainer = new SceneContainer(createSpaceShip(), populateInvaders());
-        this.gestureDetector = new GestureDetector(new SpaceShipGestureDetector(sceneContainer.getSpaceShip()));
-    }
-
-    private SpaceShip createSpaceShip() {
-        return new SpaceShip(GameEngineCreator.DEFAULT_CAMERA_WIDTH / 2f, GameEngineCreator.DEFAULT_CAMERA_HEIGHT - 100f, textureRegionAndAtlasContainer, scene);
+        this.spaceShip = new SpaceShip(GameEngineCreator.DEFAULT_CAMERA_WIDTH / 2f, GameEngineCreator.DEFAULT_CAMERA_HEIGHT - 100f, textureRegionAndAtlasContainer, scene);
+        this.invaders = populateInvaders();
+        this.gestureDetector = new GestureDetector(new SpaceShipGestureDetector(spaceShip));
     }
 
     public Scene createScene() {
         scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
-        attachInvaders(sceneContainer.getInvaders());
-        scene.attachChild(sceneContainer.getSpaceShip());
+        attachInvaders(invaders);
+        scene.attachChild(spaceShip);
         scene.setOnSceneTouchListener(this);
         return scene;
     }
@@ -57,7 +54,7 @@ public class MainGameSceneCreator implements IOnSceneTouchListener {
 
     @Override
     public boolean onSceneTouchEvent(final Scene scene, final TouchEvent pSceneTouchEvent) {
-        sceneContainer.getSpaceShip().setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
+        spaceShip.setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
         gestureDetector.onTouchEvent(pSceneTouchEvent.getMotionEvent());
         return true;
     }
