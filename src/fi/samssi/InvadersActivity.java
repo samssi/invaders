@@ -11,10 +11,10 @@ import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.opengl.texture.TextureManager;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
+import fi.samssi.container.HashMapAtlasContainer;
 import fi.samssi.creators.GameEngineCreator;
 import fi.samssi.creators.MainGameSceneCreator;
 import fi.samssi.creators.TextureRegionAndAtlas;
-import fi.samssi.creators.TextureRegionAndAtlasContainer;
 import fi.samssi.creators.TextureRegionAndAtlasCreator;
 
 public class InvadersActivity extends BaseGameActivity {
@@ -25,7 +25,7 @@ public class InvadersActivity extends BaseGameActivity {
     private TextureRegionAndAtlas spaceInvaderTextureRegionAndAtlas;
     private TextureRegionAndAtlas spaceShipTextureRegionAndAtlas;
     private TextureRegionAndAtlas shotTextureRegionAndAtlas;
-    private final TextureRegionAndAtlasContainer textureRegionAndAtlasContainer = new TextureRegionAndAtlasContainer();
+    private final HashMapAtlasContainer<TextureRegionAndAtlas> textureRegionAndAtlasContainer = new HashMapAtlasContainer<TextureRegionAndAtlas>();
 
     @Override
     public Engine onLoadEngine() {

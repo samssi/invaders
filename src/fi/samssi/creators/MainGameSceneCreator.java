@@ -12,47 +12,52 @@ import org.anddev.andengine.input.touch.TouchEvent;
 
 import android.view.GestureDetector;
 import fi.samssi.SpaceShipGestureDetector;
+import fi.samssi.container.HashMapAtlasContainer;
+import fi.samssi.container.SceneContainer;
 import fi.samssi.creatures.Invader;
 import fi.samssi.creatures.SpaceShip;
 
 
 public class MainGameSceneCreator implements IOnSceneTouchListener {
-    private final SpaceShip spaceShip;
-    private final List<Invader> invaders = new ArrayList<Invader>();
+    private final SceneContainer sceneContainer;
     private final GestureDetector gestureDetector;
     final Scene scene = new Scene();
-    private final TextureRegionAndAtlasContainer textureRegionAndAtlasContainer;
-    private final float x = 100f;
-    private final float y = 200f;
+    private final HashMapAtlasContainer<TextureRegionAndAtlas> textureRegionAndAtlasContainer;
 
-    public MainGameSceneCreator(final TextureRegionAndAtlasContainer textureRegionAndAtlasContainer) {
+
+    public MainGameSceneCreator(final HashMapAtlasContainer<TextureRegionAndAtlas> textureRegionAndAtlasContainer) {
         this.textureRegionAndAtlasContainer = textureRegionAndAtlasContainer;
-        spaceShip = new SpaceShip(GameEngineCreator.DEFAULT_CAMERA_WIDTH / 2f, GameEngineCreator.DEFAULT_CAMERA_HEIGHT - 100f, textureRegionAndAtlasContainer, scene);
-        this.gestureDetector = new GestureDetector(new SpaceShipGestureDetector(spaceShip));
+        this.sceneContainer = new SceneContainer(createSpaceShip(), populateInvaders());
+        this.gestureDetector = new GestureDetector(new SpaceShipGestureDetector(sceneContainer.getSpaceShip()));
+    }
+
+    private SpaceShip createSpaceShip() {
+        return new SpaceShip(GameEngineCreator.DEFAULT_CAMERA_WIDTH / 2f, GameEngineCreator.DEFAULT_CAMERA_HEIGHT - 100f, textureRegionAndAtlasContainer, scene);
     }
 
     public Scene createScene() {
         scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
-        populateInvaders();
-        attachInvaders(invaders);
-        scene.attachChild(spaceShip);
+        attachInvaders(sceneContainer.getInvaders());
+        scene.attachChild(sceneContainer.getSpaceShip());
         scene.setOnSceneTouchListener(this);
         return scene;
     }
 
-    private void populateInvaders() {
+    private List<Invader> populateInvaders() {
+        List<Invader> invaders = new ArrayList<Invader>();
         invaders.add(new Invader(0, 0, textureRegionAndAtlasContainer.get(INVADER).getSpaceInvaderTextureRegion()));
         invaders.add(new Invader(0, 100, textureRegionAndAtlasContainer.get(INVADER).getSpaceInvaderTextureRegion()));
         invaders.add(new Invader(0, 200, textureRegionAndAtlasContainer.get(INVADER).getSpaceInvaderTextureRegion()));
         invaders.add(new Invader(100, 0, textureRegionAndAtlasContainer.get(INVADER).getSpaceInvaderTextureRegion()));
         invaders.add(new Invader(100, 100, textureRegionAndAtlasContainer.get(INVADER).getSpaceInvaderTextureRegion()));
-        invaders.add(new Invader(x, y, textureRegionAndAtlasContainer.get(INVADER).getSpaceInvaderTextureRegion()));
+        invaders.add(new Invader(100, 200, textureRegionAndAtlasContainer.get(INVADER).getSpaceInvaderTextureRegion()));
+        return invaders;
     }
 
 
     @Override
     public boolean onSceneTouchEvent(final Scene scene, final TouchEvent pSceneTouchEvent) {
-        spaceShip.setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
+        sceneContainer.getSpaceShip().setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
         gestureDetector.onTouchEvent(pSceneTouchEvent.getMotionEvent());
         return true;
     }
